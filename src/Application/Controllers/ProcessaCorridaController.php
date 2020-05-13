@@ -25,10 +25,20 @@ class ProcessaCorridaController extends action
 
     public function processarCorrida($request, ResponseInterface $response,  $args)
     {
-        $result =  $this->service->processarCorrida();
+        $uploadedFiles = $request->getUploadedFiles();
 
+        $uploadedFile = $uploadedFiles['file'];
+
+        $uploadedFile->moveTo('../temp/' . date('dmY') . '.csv');
+        $result = $this->service->processarCorrida();
+        $payload = json_encode($result);
+
+        $response->getBody()->write($payload);
+        return $response
+            ->withStatus(201);
     }
 
+    
     
     /**
      * {@inheritdoc}

@@ -17,7 +17,7 @@ return function (App $app) {
     $app->addBodyParsingMiddleware();
 
     $app->group('/processa-corrida', function (Group $group) use ($container) {
-        $group->get('', 'App\Application\Controllers\ProcessaCorridaController:processarCorrida');
+        $group->post('', 'App\Application\Controllers\ProcessaCorridaController:processarCorrida');
     });
 };
 
