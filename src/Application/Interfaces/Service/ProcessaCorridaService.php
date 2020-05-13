@@ -5,5 +5,5 @@ namespace App\Application\Interfaces\Service;
 
 interface ProcessaCorridaService
 {
-    public function processarCorrida();
+    public function processarCorrida(): array;
 }

@@ -5,8 +5,8 @@ namespace App\Application\Helpers;
 class Helpers
 {
 
-    public static function retiraNumeros(string $str): string
+    public static function soLetra(string $str): string
     {
-        return preg_replace('/[0-9]+h/', '', $str);
+        return trim(preg_replace("/[^A-Za-z]/", " ", $str));
     }
 }

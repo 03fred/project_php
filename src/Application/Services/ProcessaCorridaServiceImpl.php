@@ -8,12 +8,12 @@ use App\Application\Interfaces\Service\ProcessaCorridaService;
 class ProcessaCorridaServiceImpl implements ProcessaCorridaService
 {
 
-    public function processarCorrida()
+    public function processarCorrida(): array
     {
         $delimitador = ';';
         $cerca = '"';
         $ordenaVoltas = [];
-        $f = fopen('../temp/'. date('dmY') . '.csv', 'r');
+        $f = fopen('../temp/' . date('dmY') . '.csv', 'r');
         if ($f) {
 
             // Ler cabecalho do arquivo
@@ -28,14 +28,22 @@ class ProcessaCorridaServiceImpl implements ProcessaCorridaService
                     continue;
                 }
 
-                $piloto = Helpers::retiraNumeros($linha[1]);
+                $piloto = Helpers::soLetra($linha[1]);
 
-                $ordenaVoltas[$piloto][] = $linha;
+                $ordenaVoltas[$piloto][] = $this->formatarLinhasArray($linha);
             }
-
-            var_dump($ordenaVoltas);
             fclose($f);
-            die;
+            return $ordenaVoltas;
         }
+    }
+
+    private function formatarLinhasArray(array $volta)
+    {
+        $arrayFormatado = [];
+        $arrayFormatado['tempo'] = trim($volta[0]);
+        $arrayFormatado['volta'] = trim($volta[2]);
+        $arrayFormatado['tempoVolta'] = trim($volta[3]);
+        $arrayFormatado['velocidadeMedia'] = trim($volta[4]);
+        return $arrayFormatado;
     }
 }
