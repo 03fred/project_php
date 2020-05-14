@@ -2,13 +2,22 @@
 
 namespace App\Application\Services;
 
+use App\Application\DTO\VoltasDTO;
 use App\Application\Helpers\Helpers;
 use App\Application\Interfaces\Service\ProcessaCorridaService;
+use App\Application\Interfaces\Service\RanquiaCorridaService;
+
 
 class ProcessaCorridaServiceImpl implements ProcessaCorridaService
 {
+    private $ranquiaVoltaService;
+   
+    public function __construct(RanquiaCorridaService $ranquiaVoltaService)
+    {
+        $this->ranquiaVoltaService = $ranquiaVoltaService;
+    }
 
-    public function processarCorrida(): array
+    public function processarCorrida()
     {
         $delimitador = ';';
         $cerca = '"';
@@ -28,12 +37,12 @@ class ProcessaCorridaServiceImpl implements ProcessaCorridaService
                     continue;
                 }
 
-                $piloto = Helpers::soLetra($linha[1]);
+                $id = Helpers::soNumero($linha[1]);
 
-                $ordenaVoltas[$piloto][] = $this->formatarLinhasArray($linha);
+                $ordenaVoltas[$id][] = $this->formatarLinhasArray($linha);
             }
-            fclose($f);
-            return $ordenaVoltas;
+
+            $this->ranquiaVoltaService->ranquiarVolta($ordenaVoltas);
         }
     }
 
@@ -41,6 +50,8 @@ class ProcessaCorridaServiceImpl implements ProcessaCorridaService
     {
         $arrayFormatado = [];
         $arrayFormatado['tempo'] = trim($volta[0]);
+        $arrayFormatado['id'] = Helpers::soNumero($volta[1]);
+        $arrayFormatado['nome'] = Helpers::soLetra($volta[1]);
         $arrayFormatado['volta'] = trim($volta[2]);
         $arrayFormatado['tempoVolta'] = trim($volta[3]);
         $arrayFormatado['velocidadeMedia'] = trim($volta[4]);
