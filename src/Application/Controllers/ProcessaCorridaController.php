@@ -28,11 +28,13 @@ class ProcessaCorridaController extends action
         $uploadedFiles = $request->getUploadedFiles();
 
         $uploadedFile = $uploadedFiles['file'];
-
+        //Salva o arquivo em um diretorio temporario
         $uploadedFile->moveTo('../temp/' . date('dmY') . '.csv');
+        //Busca os dados
         $result = $this->service->processarCorrida();
         $payload = json_encode($result);
 
+        //retorna a resposta em json
         $response->getBody()->write($payload);
         return $response
             ->withStatus(201);

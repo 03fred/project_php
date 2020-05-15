@@ -17,6 +17,7 @@ class ProcessaCorridaServiceImpl implements ProcessaCorridaService
         $this->ranquiaVoltaService = $ranquiaVoltaService;
     }
 
+    //Abri o arquivo e retornar dados
     public function processarCorrida()
     {
         $delimitador = ';';
@@ -38,24 +39,31 @@ class ProcessaCorridaServiceImpl implements ProcessaCorridaService
                     continue;
                 }
 
+                //retorna apenas o identificador através da linha
                 $id = Helpers::soNumero($linha[1]);
 
+                //formata as linhas para ficar mais facil de debugar o array
                 $dadosVolta = $this->formatarLinhasArray($linha);
+
+                //ordena as voltas por id ou seja um piloto -> varias voltas
                 $ordenaVoltas[$id][] = $dadosVolta;
 
                 array_push($detalhamentoVoltas, $dadosVolta);
             }
 
+            // junta o array  de retorno com os dados gerais da corrida
             return array_merge(
                 array(
                     'detalhamentoVoltas' => $detalhamentoVoltas
                 ),
 
+                //retorna os dados propostos no pdf
                 $this->ranquiaVoltaService->ranquiarVolta($ordenaVoltas)
             );
         }
     }
 
+    //formata as linhas para ficar mais facil de debugar o array
     private function formatarLinhasArray(array $volta)
     {
         $arrayFormatado = [];
