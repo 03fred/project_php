@@ -13,9 +13,9 @@ COMPOSER
 
 Dentro do diretorio raíz do projeto local, executar o comando - 'composer install'  
 
-Dentro do diretorio raíz do projeto local, executar o comando - 'php -S localhost:8000 -t  
+Dentro do diretorio raíz do projeto local, executar o comando - 'php -S localhost:8000 -t public'  
 
-public'Acessar o host :  http://localhost:8000/index.html  
+Acessar o host :  http://localhost:8000/index.html    
 
 Acessar o arquivo no diretorio raíz/file = (/file);
 
