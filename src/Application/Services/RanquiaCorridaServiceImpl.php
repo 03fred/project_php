@@ -23,7 +23,7 @@ class RanquiaCorridaServiceImpl implements RanquiaCorridaService
                 $melhorVoltaCorrida = $auxMelhorVolta;
             }
 
-            $auxMelhorVolta['velociadeMediaTotal'] =  $velMedia;
+            $auxMelhorVolta['velociadeMediaTotal'] = Helpers::formatarTempo($velMedia);
 
             $auxMelhorVolta['tempoTotalProva'] = Helpers::somarHoras($tempoProva);
 
@@ -40,14 +40,15 @@ class RanquiaCorridaServiceImpl implements RanquiaCorridaService
             array_push($melhorVoltaPiloto, $auxMelhorVolta);
         }
 
-        var_dump($melhorVoltaCorrida, $melhorVoltaPiloto);
-        die;
+        return array(
+            'melhorVoltaCorrida' => $melhorVoltaCorrida,
+            'melhorVoltaPiloto' => $melhorVoltaPiloto
+        );
     }
 
 
     private function melhorVolta($voltasPiloto, &$velMedia, &$tempoProva): array
     {
-
         $min = $voltasPiloto[0];
         $tempoProva = [];
         $velMedia = 0;

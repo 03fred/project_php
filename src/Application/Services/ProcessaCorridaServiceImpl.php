@@ -11,7 +11,7 @@ use App\Application\Interfaces\Service\RanquiaCorridaService;
 class ProcessaCorridaServiceImpl implements ProcessaCorridaService
 {
     private $ranquiaVoltaService;
-   
+
     public function __construct(RanquiaCorridaService $ranquiaVoltaService)
     {
         $this->ranquiaVoltaService = $ranquiaVoltaService;
@@ -22,6 +22,7 @@ class ProcessaCorridaServiceImpl implements ProcessaCorridaService
         $delimitador = ';';
         $cerca = '"';
         $ordenaVoltas = [];
+        $detalhamentoVoltas = [];
         $f = fopen('../temp/' . date('dmY') . '.csv', 'r');
         if ($f) {
 
@@ -39,10 +40,19 @@ class ProcessaCorridaServiceImpl implements ProcessaCorridaService
 
                 $id = Helpers::soNumero($linha[1]);
 
-                $ordenaVoltas[$id][] = $this->formatarLinhasArray($linha);
+                $dadosVolta = $this->formatarLinhasArray($linha);
+                $ordenaVoltas[$id][] = $dadosVolta;
+
+                array_push($detalhamentoVoltas, $dadosVolta);
             }
 
-            $this->ranquiaVoltaService->ranquiarVolta($ordenaVoltas);
+            return array_merge(
+                array(
+                    'detalhamentoVoltas' => $detalhamentoVoltas
+                ),
+
+                $this->ranquiaVoltaService->ranquiarVolta($ordenaVoltas)
+            );
         }
     }
 
