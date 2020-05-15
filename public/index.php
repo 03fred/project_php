@@ -48,10 +48,6 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
     return $response;
 });
 
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ .'/pages/');
-$twig = new \Twig\Environment($loader, [
-    'cache' => false,
-]);
 
 $callableResolver = $app->getCallableResolver();
 

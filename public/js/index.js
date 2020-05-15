@@ -61,7 +61,7 @@ function popularMelhoresVoltas(dados) {
 function popularDetalhamentoProva(data) {
     $(".grid").jsGrid({
         width: "100%",
-        height: "400px",
+        height: "auto",
         editing: false,
         sorting: true,
         paging: true,
