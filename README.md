@@ -1,11 +1,14 @@
 # Slim Framework 4 Skeleton Application
 
-Web application skeleton that uses the Slim4 Framework, PHP-DI as dependency injection container, PSR-7 implementation and eloquent.
+Projeto para um processamento de um arquivo de corrida.
 
-This makes setting up a new Slim Framework application quick and easy.
+## Requistos 
+ PHP >=7
+ COMPOSER
 
-## Install the Application
+## Instalar aplicação
+Clonar o projeto.
+Dentro do diretorio raíz do projeto local, executar o comando - 'composer install'
+Dentro do diretorio raíz do projeto local, executar o comando - 'php -S localhost:8000 -t public'
+Acessar o host :  http://localhost:8000/index.html
 
-Clone this project and configure your database in settings.php 
-
-That's it! Now go build something cool.
