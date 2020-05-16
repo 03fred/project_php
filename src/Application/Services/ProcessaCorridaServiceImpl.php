@@ -2,19 +2,18 @@
 
 namespace App\Application\Services;
 
-use App\Application\DTO\VoltasDTO;
 use App\Application\Helpers\Helpers;
 use App\Application\Interfaces\Service\ProcessaCorridaService;
-use App\Application\Interfaces\Service\RanquiaCorridaService;
+use App\Application\Interfaces\Service\RanqueaCorridaService;
 
 
 class ProcessaCorridaServiceImpl implements ProcessaCorridaService
 {
-    private $ranquiaVoltaService;
+    private $ranqueaVoltaService;
 
-    public function __construct(RanquiaCorridaService $ranquiaVoltaService)
+    public function __construct(RanqueaCorridaService $ranqueaVoltaService)
     {
-        $this->ranquiaVoltaService = $ranquiaVoltaService;
+        $this->ranqueaVoltaService = $ranqueaVoltaService;
     }
 
     //Abri o arquivo e retornar dados
@@ -58,7 +57,7 @@ class ProcessaCorridaServiceImpl implements ProcessaCorridaService
                 ),
 
                 //retorna os dados propostos no pdf
-                $this->ranquiaVoltaService->ranquiarVolta($ordenaVoltas)
+                $this->ranqueaVoltaService->ranquearVolta($ordenaVoltas)
             );
         }
     }

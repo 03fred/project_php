@@ -3,12 +3,12 @@
 namespace App\Application\Services;
 
 use App\Application\Helpers\Helpers;
-use App\Application\Interfaces\Service\RanquiaCorridaService;
+use App\Application\Interfaces\Service\RanqueaCorridaService;
 
-class RanquiaCorridaServiceImpl implements RanquiaCorridaService
+class RanqueaCorridaServiceImpl implements RanqueaCorridaService
 {
 
-    public function ranquiarVolta(array $voltas)
+    public function ranquearVolta(array $voltas)
     {
         //captura o primeiro piloto do array
         $idPrimeiroPiloto = array_key_first($voltas);
